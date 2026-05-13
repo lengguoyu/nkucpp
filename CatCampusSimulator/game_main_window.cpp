@@ -77,6 +77,7 @@ void GameMainWindow::initUI()
     for(int i = 0; i < 4; i++) {
         optBtn[i] = new QPushButton();
         optBtn[i]->setFixedHeight(38);
+
         optBtn[i]->setStyleSheet(
             "QPushButton{"
             "   background-color:rgba(52,152,219,0.85);"
@@ -128,14 +129,14 @@ void GameMainWindow::initUI()
 
 void GameMainWindow::clearOptions()
 {
-    for(int i = 0; i < 4; i++) optBtn[i]->hide();
+    for(int i = 0; i < 4; i++)optBtn[i]->hide();
     optionsWidget->hide();
 }
 
 void GameMainWindow::showOptions(QStringList texts)
 {
     clearOptions();
-    for(int i = 0; i < texts.size(); i++) {
+    for(int i = 0; i < texts.size()&&i<4; i++) {
         optBtn[i]->setText(texts[i]);
         optBtn[i]->show();
     }
@@ -363,7 +364,7 @@ void GameMainWindow::scene6()
 {
     storyText->clear();
     storyText->append("🎯 好不容易的空闲时间，到底做点什么好呢？");
-    showOptions({"😴 好好午睡一下吧", "🚶 不然去逛一下吧"});
+    showOptions({"🚶 不然去逛一下吧", "😴 好好午睡一下吧"});//😴 好好午睡一下吧
 }
 
 // ==================== 场景7 ====================
@@ -381,9 +382,9 @@ void GameMainWindow::scene7()
             return;
         }
     } else {
-        storyText->append("😴 数学课上昏昏欲睡，在梦里和周公讨论圆锥曲线。");
+        storyText->append("😴 数学课上昏昏欲睡，在梦里和周公讨论交集并集。");
         if(randChance(80)) {
-            storyText->append("🎯 老师抽中了63回答问题！");
+            storyText->append("🎯 老师抽中了63回答以下其中一个问题！");
             showOptions({"圆锥曲线", "立体几何", "导数"});
             return;
         }
@@ -677,13 +678,14 @@ void GameMainWindow::onOption1()
             tempNextScene = 7;
             nextBtn->show();
             clearOptions();
-        } else if(choice == "🚶 不然去逛一下吧") {
+        } else{
             clearOptions();
             storyText->clear();
             storyText->append("🏃 63决定到处逛逛...去哪里好呢？");
-            showOptions({"📚图书馆", "🎹 钢琴房"});
+            showOptions({"📚图书馆", "🎹钢琴房"});//📚图书馆
             data.waitSecond = true;
-            data.secondType = 1;
+            data.secondType =1;
+            data.scene=12;
         }
         return;
     }
@@ -779,6 +781,13 @@ void GameMainWindow::onOption1()
         }
         return;
     }
+    if(data.scene==12)
+    {
+        QPushButton* tmp = optBtn[1];
+        optBtn[1] = optBtn[0];
+        onOption2();
+        optBtn[1] = tmp;
+    }
 }
 
 // ==================== 选项2 ====================
@@ -792,19 +801,20 @@ void GameMainWindow::onOption2()
 
             clearOptions();
 
-            if(choice == "📚 图书馆") {
+            if(choice == "📚图书馆") {
                 setBG(":/images/library.jpg");
                 storyText->clear();
                 storyText->append("📚 63决定去图书馆...图书馆有沙发，看书看累了可以在上面休息。63拿了一本《猫类简史》，兴致勃勃地看了起来。这时候，图书馆书架处好像有猫出现了摩擦声。");
-                showOptions({"🔍 过去看看到底发生了什么事情", "📖 不关我的事，一会就好了"});
+                showOptions({"nothing here","🔍 过去看看发生了什么事", "📖 不关我的事，一会就好了"});//🔍 过去看看到底发生了什么事情
                 data.waitSecond = true;
                 data.secondType = 2;
             }
-            else if(choice == "🎹 钢琴房") {
+            else {
                 setBG(":/images/piano_room.jpg");
                 storyText->clear();
+                clearOptions();
                 storyText->append("🎹 63决定去钢琴房...这时候钢琴房正有悠扬的琴声传来。63想前去一探究竟。身穿校服的学长正坐在钢琴前，优美的琴音从他指尖流出，多么美好的画面呀！");
-                showOptions({"💬 上前温柔提醒", "🚪 默默将门带上"});
+                showOptions({"🚪 默默将门带上", "💬 上前温柔提醒"});//💬 上前温柔提醒
                 data.waitSecond = true;
                 data.secondType = 3;
             }
