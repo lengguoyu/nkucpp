@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/bedroom.jpg</file>
+        <file>images/campus.jpg</file>
+        <file>images/canteen.jpg</file>
+        <file>images/classroom.jpg</file>
+        <file>images/free_time.jpg</file>
+        <file>images/lamb_noodles.jpg</file>
+        <file>images/library.jpg</file>
+        <file>images/living_room.jpg</file>
+        <file>images/night_classroom.jpg</file>
+        <file>images/night_market.jpg</file>
+        <file>images/noodles.jpg.jpg</file>
+        <file>images/piano_room.jpg</file>
+        <file>images/shaomai.jpg</file>
+        <file>images/stir_fry.jpg</file>
+        <file>images/sunset.jpg</file>
+        <file>images/bedroom_night.jpg</file>
+    </qresource>
+</RCC>
